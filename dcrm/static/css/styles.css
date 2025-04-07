@@ -1,0 +1,13 @@
+body{
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+h1{
+    color: rgb(47, 47, 194);
+}
