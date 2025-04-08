@@ -4,7 +4,39 @@
 {% block content %}
     
     {% if user.is_authenticated %}
-        <h1>You are log in</h1>
+        
+        <div class="table-responsive">
+            <table class="table table-striped-columns table-reportes" id="tablaReportes">
+              <tr>
+                  <th>ID</th>
+                  <th>created at</th>
+                  <th>Name</th>
+                  <th>Last name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Adress</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Zip code</th>
+              </tr>
+              {% if records %}
+              {% for record in records %}
+              <tr>
+                  <td>{{record.id}}</td>
+                  <td>{{record.created_at}}</td>
+                  <td>{{record.first_name}}</td>
+                  <td>{{record.last_name}}</td>
+                  <td>{{record.email}}</td>
+                  <td>{{record.phone}}</td>
+                  <td>{{record.adress}}</td>
+                  <td>{{record.city}}</td>
+                  <td>{{record.state}}</td>
+                  <td>{{record.zipcode}}</td>
+              </tr>
+              {% endfor %}
+              {% endif %}
+          </table>
+          </div>
     {% else %}
     <div class="form__container">
         <form action="{% url 'home' %}" method="post" id="form-login" class="form-login">

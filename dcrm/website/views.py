@@ -2,10 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+from . models import Records
 # Create your views here.
 
 def home(request):
     # Check to see if logging in
+    records = Records.objects.all()
 
     if request.method == 'POST':
         username = request.POST['username']
@@ -21,7 +24,7 @@ def home(request):
         else:
             messages.success(request, 'There was an error loggin in, please try again....')
             return redirect('home')
-    return render(request, 'website/home.html', {})
+    return render(request, 'website/home.html', {'records': records})
 
 def logout_user(request):
     logout(request)
