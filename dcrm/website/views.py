@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -49,3 +49,39 @@ def register_user(request):
 
 
     return render(request, 'website/regist.html')
+
+def records(request, pk):
+    if request.user.is_authenticated:
+        records = Records.objects.filter(id = pk).all()
+        return render(request, 'website/custom_record.html', {'records': records})
+    else:
+        messages.success(request, 'You must be logged in!!')
+        return render(request, 'website/home.html')
+
+def edit_record(request, pk):
+    if request.user.is_authenticated:
+        record = get_object_or_404(Records, id=pk)
+        
+        if request.method == 'POST':
+            # Actualizar cada campo manualmente
+            record.first_name = request.POST.get('name', record.first_name)
+            record.last_name = request.POST.get('lastname', record.last_name)
+            record.email = request.POST.get('email', record.email)
+            record.phone = request.POST.get('phone', record.phone)
+            record.adress = request.POST.get('adress', record.adress)
+            record.city = request.POST.get('city', record.city)
+            record.state = request.POST.get('state', record.state)
+            record.zipcode = request.POST.get('zipcode', record.zipcode)
+            
+            try:
+                record.save()
+                messages.success(request, "Record updated successfully!")
+                return redirect('records', pk=pk)
+            except Exception as e:
+                messages.error(request, f"Error updating record: {e}")
+        
+        # Si es GET, mostrar el formulario con los datos actuales
+        return redirect('records', pk=pk)
+    else:
+        messages.success(request, 'You must be logged in!!')
+        return redirect('home')

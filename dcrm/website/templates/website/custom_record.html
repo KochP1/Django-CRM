@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %} Custom Record {% endblock %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    {% for record in records %}
+    <div class="form__container">
+        <form action="{% url 'edit_record' record.id %}" method="post" id="form-login" class="form-login form-edit">
+
+            {% csrf_token %}
+
+            <label>Name</label>
+            <input type="text" class="form-control mb-3" name="name" value="{{record.first_name}}">
+
+            <label>Last Name</label>
+            <input type="text" class="form-control mb-3" name="lastname" value="{{record.last_name}}">
+
+            <label>Email</label>
+            <input type="email" class="form-control mb-3" name="email" value="{{record.email}}">
+
+            <label>Phone</label>
+            <input type="text" class="form-control mb-3" name="phone" value="{{record.phone}}">
+
+            <label>Adress</label>
+            <input type="text" class="form-control mb-3" name="adress" value="{{record.adress}}">
+    
+            <label>City</label>
+            <input type="text" class="form-control mb-3" name="city" value="{{record.city}}">
+
+            <label>State</label>
+            <input type="text" class="form-control mb-3" name="state" value="{{record.state}}">
+
+            <label>Zip code</label>
+            <input type="text" class="form-control mb-3" name="zipcode" value="{{record.zipcode}}">
+
+            <button type="submit" class="btn btn-secondary btn-login">Editar</button>
+        </form>
+    </div>
+    {% endfor %}
+{% endblock %}

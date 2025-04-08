@@ -48,3 +48,12 @@ body{
 .form-login input, label{
     margin-left: 10px;
 }
+
+.form-edit{
+    border-radius: 7px;
+    height: 850px;
+}
+
+.form-edit label, .form-edit input{
+    font-size: 1rem;
+}
