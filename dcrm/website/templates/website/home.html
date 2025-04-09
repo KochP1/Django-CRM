@@ -32,6 +32,10 @@
                   <td>{{record.city}}</td>
                   <td>{{record.state}}</td>
                   <td>{{record.zipcode}}</td>
+                  <td><form action="{% url 'delete_record' record.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">Delete</button>
+                  </form></td>
               </tr>
               {% endfor %}
               {% endif %}

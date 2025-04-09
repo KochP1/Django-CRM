@@ -32,7 +32,7 @@ body{
 }
 
 .form-login input{
-    width: 90%;
+    width: 90% !important;
 }
 
 .form-login label, input {
@@ -56,4 +56,26 @@ body{
 
 .form-edit label, .form-edit input{
     font-size: 1rem;
+}
+
+.form-create_record{
+    height: 750px;
+}
+
+.form-create_record button {
+    margin-top: 20px;
+}
+
+.form-create_record div {
+    width: 100%;
+    margin-left: 10px;
+}
+
+.form-create_record div input{
+    width: 90% !important;
+    font-size: 1.4rem;
+}
+
+.form-create_record div label {
+    font-size: 1.4rem;
 }

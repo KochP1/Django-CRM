@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 from . models import Records
+from . form import RecordForm
 # Create your views here.
 
 def home(request):
@@ -85,3 +86,23 @@ def edit_record(request, pk):
     else:
         messages.success(request, 'You must be logged in!!')
         return redirect('home')
+
+def delete_record(request, pk):
+    if request.method == 'POST':
+        record = Records.objects.get(id = pk)
+        record.delete()
+        messages.success(request, 'Record deleted')
+        return redirect('home')
+
+def create_record(request):
+    if request.method == 'POST':
+        form = RecordForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'The record has been created')
+            return redirect('home')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else: 
+        form = RecordForm()
+    return render(request, 'website/create_record.html', {'form': form})
