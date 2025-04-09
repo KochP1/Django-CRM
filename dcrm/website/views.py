@@ -106,3 +106,10 @@ def create_record(request):
     else: 
         form = RecordForm()
     return render(request, 'website/create_record.html', {'form': form})
+
+def search_record(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        records = Records.objects.filter(first_name = name).all()
+        print(type(records))
+        return render(request, 'website/home.html', {'records': records})
